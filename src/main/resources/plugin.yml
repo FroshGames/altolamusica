@@ -1,0 +1,4 @@
+name: altolamusica
+version: '0.1-SNAPSHOT'
+main: am.FroshGames.altolamusica.Altolamusica
+api-version: '1.20'
