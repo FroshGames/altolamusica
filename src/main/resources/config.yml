@@ -1,0 +1,30 @@
+# Configuración del Pluguin
+
+# Número de sillas
+
+chairs:
+  - world: world
+    x: 100
+    y: 65
+    z: 100
+  - world: world
+    x: 101
+    y: 65
+    z: 100
+  - world: world
+    x: 102
+    y: 65
+    z: 100
+  - world: world
+    x: 103
+    y: 65
+    z: 100
+# Añadir más sillas si es necesario
+
+#Número de sillas eliminadas por ronda
+
+chairsToRemovePerRound: 1 #Sillas eliminadas por ronda: Default (1)
+
+#Rounds
+
+totalRounds: 5 #Rondas totales: Default (5)

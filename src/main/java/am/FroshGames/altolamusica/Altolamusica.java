@@ -9,6 +9,8 @@ public final class Altolamusica extends JavaPlugin {
     public void onEnable() {
         Bukkit.getConsoleSender().sendMessage("AltoLaMusica has been enable");
             saveDefaultConfig();
+
+            getCommand("altolamusica").setExecutor(new GameCommand(this));
     };
 
     @Override
