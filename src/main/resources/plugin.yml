@@ -1,4 +1,14 @@
 name: altolamusica
-version: '0.1-SNAPSHOT'
+version: 0.1
 main: am.FroshGames.altolamusica.Altolamusica
-api-version: '1.20'
+api-version: 1.20
+author: FroshGames
+description: Un minijuego inspirado en 'Alto la música' de Squid Games.
+commands:
+  altolamusica:
+    description: Start the Alto la Música mini-game
+    usage: /<command>
+permissions:
+  altolamusica.admin:
+    description: Permite al jugador gestionar el minijuego.
+    default: op
