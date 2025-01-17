@@ -1,10 +1,10 @@
 package am.FroshGames.altolamusica.listener;
 
 import am.FroshGames.altolamusica.Altolamusica;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Sound;
+import org.bukkit.*;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,11 +17,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-public class GameListener implements Listener {
+public class GameListener implements Listener, CommandExecutor {
 
     private final Altolamusica pluguin;
     private boolean musicPlaying = true;
     private final Set<Player> movingPlayers = new HashSet<>();
+    private final Set<Player> activePlayers = new HashSet<>();
     private final Set<Location> chairs = new HashSet<>();
     private final int round = 1;
     private final int chairsToRemovePerRound;
@@ -42,13 +43,13 @@ public class GameListener implements Listener {
     private void setupChairs() {
         List<?> chairlist = pluguin.getConfig().getList("chairs");
         if (chairlist != null) {
-            for ( Object chairObj : chairlist){
+            for (Object chairObj : chairlist) {
                 if (chairObj instanceof ConfigurationSection) {
                     ConfigurationSection chairSection = (ConfigurationSection) chairObj;
                     String world = chairSection.getString("world");
                     double x = chairSection.getDouble("x");
-                    double y = chairSection.getDouble("x");
-                    double z = chairSection.getDouble("x");
+                    double y = chairSection.getDouble("y");
+                    double z = chairSection.getDouble("z");
                     chairs.add(new Location(Bukkit.getWorld(world), x, y, z));
                 }
             }
@@ -60,16 +61,17 @@ public class GameListener implements Listener {
         Player player = event.getPlayer();
         if (!musicPlaying && !movingPlayers.contains(player)) {
             Bukkit.getScheduler().runTask(pluguin, () -> {
-                player.sendMessage(ChatColor.RED + "¡Te has movido mientras la música estaba detenida");
-                player.setHealth(0); // Elimina al jugador
+                player.sendMessage(ChatColor.RED + "¡Te has movido mientras la música estaba detenida!");
+                //player.setHealth(0); // Elimina al jugador
             });
-        }
+            //bug ALM:00001 pluguin asesino de espectadores
+        }       //[(Intento de  solución de bug)] fecha 11/01/2025
     }
 
     private void startMusicCycle() {
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             @Override
-            public  void run() {
+            public void run() {
                 musicPlaying = !musicPlaying;
                 if (musicPlaying) {
                     Bukkit.broadcastMessage(ChatColor.GREEN + "¡La música ha comenzado! Puedes moverte.");
@@ -92,7 +94,7 @@ public class GameListener implements Listener {
                 return true;
             }
         }
-        return true;
+        return false;
     }
 
     private void removeChairs() {
@@ -110,5 +112,20 @@ public class GameListener implements Listener {
             player.playSound(player.getLocation(), Sound.valueOf(music), 1.0f, 1.0f);
         }
     }
-    
+
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (command.getName().equalsIgnoreCase("stopgame")) {
+            stopGame();
+            return true;
+        }
+        return false;
+    }
+
+    private void stopGame() {
+        Bukkit.broadcastMessage(ChatColor.RED + "¡El juego ha sido detenido!");
+        for (Player player : activePlayers) {
+            player.setHealth(0); // Elimina al jugador
+        }
+        activePlayers.clear();
+    }
 }
