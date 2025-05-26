@@ -38,7 +38,7 @@ public class GameCommand implements CommandExecutor {
         }
         return false;
     }
-
+// Pluguin echo por Froshy
     private void startGame() {
         gameInProgress = true;
         Bukkit.broadcastMessage(ChatColor.GOLD + "¡El minijuego Alto la Música ha comenzado!");
