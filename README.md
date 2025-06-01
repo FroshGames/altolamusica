@@ -21,7 +21,7 @@
 ---
 
 ## 🛠️ Instalación (super fácil)  
-1. Descarga [altoLaMusica.jar](https://link-tu-plugin.com)  
+1. Descarga [altoLaMusica.jar](https://link-tu-plugin.com)
 2. Mételo en `plugins/` de tu servidor  
 3. Reinicia y grita: "¡EMPIEZA EL JUEGO!"  
 
@@ -35,9 +35,6 @@ Si este plugin te hizo pasar más miedo que un creeper en la espalda, considera 
 (¡Y me ayuda a crear más plugins locos!)*
 
 Si te salvaste de explotar como globo rojo 🎈, invítale un café:
-
-ko-fi
-Cada donación evita que me eliminen en la próxima ronda 😉
 
 ## 🩹 Sala de Trauma Técnico (Créditos & Bugs)  
 
